@@ -36,22 +36,25 @@ function markDepart($id_jour, $id_user, $id_presence)
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/style.css">
     <title>Presence - utilisateur</title>
 </head>
 
 <body>
 
-    <header>
-        <h1>Présence - <?php echo $user['nom'] . " " . $user['prenom'] ?></h1>
-        <h2>Team <?php echo $user['team'] ?></h2>
-        <h2>Email <?php echo $user['email'] ?></h2>
+    <div id="header-user">
+        <nav>
+            <h1>Présence - <?php echo $user['nom'] . " " . $user['prenom'] ?></h1>
+            <h2>Team <?php echo $user['team'] ?></h2>
+            <h2><?php echo $user['email'] ?></h2>
+        </nav>
 
         <form action="../controller/admin.php" method="post">
             <input type="submit" value="Log out" name="log_out">
         </form>
-    </header>
+    </div>
 
-    <section>
+    <section id="section-user">
         <h2>Liste de presence</h2>
         <div>
             <?php
@@ -61,13 +64,17 @@ function markDepart($id_jour, $id_user, $id_presence)
                     <span><?php echo $value['date_jour'] ?></span>
                     <span><?php echo $value['nom'] ?></span>
                     <span><?php echo $value['prenom'] ?></span>
-                    <span><?php echo $value['arrive'] ?></span>
-                    <span><?php echo $value['depart'] ?></span>
+                    <span class="heure">
+                        <span><?php echo $value['arrive'] ?></span>
+                        <span><?php echo $value['depart'] ?></span>
+                    </span>
                     <span>
+                    <span class="action">
                         <?php echo $value['arrive'] == null ? markArrive($value['id'], $user['id'], $value['presence_id']) : "" ?>
                     </span>
                     <span>
                         <?php echo $value['arrive'] != null and $value['depart'] == null ? markDepart($value['id'], $user['id'], $value['presence_id']) : "" ?>
+                    </span>
                     </span>
                 </div>
                 <?php
@@ -76,7 +83,7 @@ function markDepart($id_jour, $id_user, $id_presence)
         </div>
 
     </section>
-
+<?php include "footer.php"?>
 </body>
 
 </html>

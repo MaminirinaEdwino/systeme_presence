@@ -1,0 +1,138 @@
+@import "tailwindcss";
+
+@theme{
+    --color-c1: #001524;
+    --color-c2: #15616D;
+    --color-c3: #FFECD1;
+    --color-c4: #FF7D00;
+    --color-c5: #78290F;
+}
+body{
+    @apply bg-c3/50 min-h-[100vh] scroll-smooth;
+}
+#landing_page{
+    @apply w-fit h-fit flex items-center justify-center flex-col mx-auto my-auto bg-c2  rounded-xl translate-y-20;
+}
+#landing_page > h1{
+    @apply text-2xl m-5;
+}
+#log_in{
+    @apply flex flex-col;
+}
+#log_in > input[type="submit"]{
+    @apply bg-c3/40 text-c1 hover:bg-c2/50  transition-colors mb-5;
+}
+input{
+    @apply h-10 p-2 px-4 m-1 rounded-lg;
+}
+
+#header-user, .header-admin{
+    @apply flex justify-between bg-c2 p-2 text-c3 items-center sticky top-0;
+    nav{
+        h2{
+            @apply text-[10px];
+        }
+    }
+    input[type="submit"]{
+        @apply bg-c3 text-c2 font-bold ;
+        &:hover{
+            @apply bg-c3/50 transition-colors;
+        }
+    }
+}
+#section-user{
+    @apply w-full min-h-[90vh];
+    h2{
+        @apply text-center text-2xl font-bold text-c2 m-2;
+    }
+    &>div{
+        @apply p-2 ;
+        &>div{
+            @apply grid p-2  items-center;
+            
+            grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+            input[name="present_btn"]{
+                @apply bg-c2 text-c3 transition-colors;
+                &:hover{
+                    @apply bg-c2/50;
+                }
+            }
+            input[name="depart_btn"]{
+                @apply bg-c4 text-c3 transition-colors;
+                &:hover{
+                    @apply bg-c4/50;
+                }
+            }
+            .heure, .action{
+                @apply flex flex-col
+            }
+        }
+    }
+}
+
+footer{
+    @apply bg-c2 text-c3 font-bold sticky bottom-0 w-full p-2 py-4 flex justify-between;
+}
+
+.header-admin{
+    @apply sticky top-0 z-10;
+    nav ul{
+        @apply flex justify-center gap-2 ;
+
+        li:hover{
+            @apply border-b-2;
+        }
+    }
+}
+#add-user-form{
+    @apply flex mx-auto w-fit h-fit flex-col border border-c2 p-2 rounded-md m-2;
+    h2{
+        @apply text-center text-lg text-c2
+    }
+    input, select{
+        @apply bg-c2 w-[20rem] text-c3
+    }
+    select{
+        @apply h-10 px-4 rounded-md m-1 ;
+    }
+}
+.list-user{
+    div{
+        &:first-of-type{
+            @apply bg-c2 py-3 text-c3;
+        }
+        @apply grid text-left items-center px-2;
+        grid-template-columns: 1fr 2fr 2fr 1fr 3fr 1fr;
+        input{
+            @apply bg-c4 text-c3 font-bold;
+        }
+    }
+}
+#add-day{
+    @apply m-3 p-2 text-center bg-c2 text-c3 rounded w-fit mx-auto;
+    h2{
+        @apply text-xl font-bold ;
+    }
+    input{
+        @apply bg-c3 text-c2 
+    }
+}
+.list-Jour{
+    @apply  w-full;
+    div{
+        @apply p-2;
+        div{
+            &:first-of-type{
+                @apply flex justify-between items-center bg-c2 text-c3;
+                input{
+                    @apply bg-c4 ;
+                }
+            }
+            @apply grid grid-cols-7;
+        }
+        
+    }
+}
+.content{
+    @apply h-[90vh]
+}

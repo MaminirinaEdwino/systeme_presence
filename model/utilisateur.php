@@ -50,7 +50,7 @@ class Membre extends Utilisateur
     {
         $db = new DB();
         $db->connect();
-        $req = $db->connexion->prepare("select now() as now,jour.id,to_char(jour.date_jour, 'Day YYYY') as date_jour, presence.id as presence_id, to_char(presence.arrive, 'HH24:MI') as arrive, to_char(presence.depart, 'HH24:MI') as depart, utilisateur.nom, utilisateur.prenom from jour left join presence on jour.id = presence.id_jour left join utilisateur on utilisateur.id = presence.id_user where presence.id_user is null or presence.id_user = :id  group by jour.id, utilisateur.nom, utilisateur.prenom, presence.id order by jour.date_jour desc");
+        $req = $db->connexion->prepare("select now() as now,jour.id,to_char(jour.date_jour, 'Day DD Month YYYY') as date_jour, presence.id as presence_id, to_char(presence.arrive, 'HH24:MI') as arrive, to_char(presence.depart, 'HH24:MI') as depart, utilisateur.nom, utilisateur.prenom from jour left join presence on jour.id = presence.id_jour left join utilisateur on utilisateur.id = presence.id_user where presence.id_user is null or presence.id_user = :id  group by jour.id, utilisateur.nom, utilisateur.prenom, presence.id order by jour.date_jour desc");
         $req->execute([
             "id" => $id
         ]);

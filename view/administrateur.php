@@ -5,8 +5,8 @@ session_start();
 function addUserView()
 {
     ?>
-    <form action="./controller/admin.php" method="post">
-        <h1>Ajouter utilisateur</h1>
+    <form action="./controller/admin.php" method="post" id="add-user-form">
+        <h2>Ajouter utilisateur</h2>
         <label for="nom">Nom</label>
         <input type="text" name="nom">
         <label for="prenom">Prenom</label>
@@ -30,7 +30,7 @@ function listUserView()
     $admin = new Administrateur();
     $listUser = $admin->listUser();
     ?>
-    <div>
+    <div class="list-user">
         <div>
             <span>id</span>
             <span>Nom</span>
@@ -55,9 +55,10 @@ function listUserView()
                     </form>
                 </span>
             </div>
-        </div>
-        <?php
-        }
+        <?php } ?>
+
+    </div>
+    <?php
 }
 
 function listJourView()
@@ -65,22 +66,21 @@ function listJourView()
     $admin = new Administrateur();
     $listDay = $admin->listDay();
     ?>
-    <div>
-        <div>
-            <span>id_jour</span>
-            <span>date</span>
-        </div>
+    <div class="list-Jour">
+
 
         <?php
         foreach ($listDay as $key => $value) {
             ?>
             <div>
-                <span><?php echo $value['id_jour'] ?></span>
-                <span><?php echo $value['date_jour'] ?></span>
-               <form action="../controller/admin.php" method="post">
-                    <input type="hidden" name="id_jour" value="<?php echo $value['id_jour'] ?>">
-                    <input type="submit" value="Delete" name="delete_day_btn">
-               </form>
+                <div>
+                    <!-- <span><?php echo $value['id_jour'] ?></span> -->
+                    <span><?php echo $value['date_jour'] ?></span>
+                    <form action="../controller/admin.php" method="post">
+                        <input type="hidden" name="id_jour" value="<?php echo $value['id_jour'] ?>">
+                        <input type="submit" value="Delete" name="delete_day_btn">
+                    </form>
+                </div>
                 <div>
                     <span>nom</span>
                     <span>prenom</span>
@@ -118,8 +118,8 @@ function listJourView()
 function AddDayView()
 {
     ?>
-    <form action="../controller/admin.php" method="post">
-        Add Jour de travail
+    <form action="../controller/admin.php" method="post" id="add-day">
+        <h2>Add Jour de travail</h2>
         <input type="submit" value="Add" name="add_day">
     </form>
 
@@ -136,31 +136,48 @@ function AddDayView()
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/style.css">
     <title>Présence - Admin</title>
 </head>
 
 <body>
-    <form action="../controller/admin.php" method="post">
-        <input type="submit" value="Log out" name="log_out">
-    </form>
+    <header class="header-admin">
+        <h2>Admin Interface</h2>
+        <nav>
+            <form action="./administrateur.php" method="post">
+                <input type="submit" value="Users" name="users-btn">
+                <input type="submit" value="Days" name="Day-btn">
+            </form>
+        </nav>
+        <form action="../controller/admin.php" method="post">
+            <input type="submit" value="Log out" name="log_out">
+        </form>
+    </header>
+
+    <div class="content">
     <?php
 
-    echo "admin";
 
+
+if (isset($_POST['users-btn'])) {
     addUserView();
     listUserView();
+} else {
     $db = new DB();
     $db->connect();
 
     $state = $db->connexion->query("select compare_date_now() as state")->fetch()["state"];
-    echo $state;
 
     if ($state) {
         AddDayView();
     }
-
     listJourView();
-    ?>
+}
+
+
+?>
+    </div>
+    <?php include "footer.php" ?>
 </body>
 
 </html>
